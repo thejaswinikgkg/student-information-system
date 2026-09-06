@@ -6,11 +6,13 @@ const app = express();
 app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
+    host: process.env.DB_HOST || "127.0.0.1",
+    port: process.env.DB_PORT || 3306,
+    user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD,
-    database: "studentdb"
+    database: process.env.DB_NAME || "studentdb"
 });
+
 db.connect((err) => {
     if (err) {
         console.log("Database connection failed");
